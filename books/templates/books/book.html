@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}{{ book }}{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1 class="display-4">{{ book }}</h1>
+  <p class="lead">{{ book.description }}</p>
+  {% if user.is_authenticated and user in book.user.all %}
+  <hr class="my-4">
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{% url 'book_edit' book.pk %}" role="button">Редактировать</a>
+  </p>
+  {% endif %}
+</div>
+
+{% if user.is_authenticated %}
+<form action="{% url 'book' book.pk %}" method="post" class="form">
+
+  {% csrf_token %}
+  {% bootstrap_form form_comment_add %}
+
+  {% buttons %}
+  <button name="submit" class="btn btn-primary">Комментировать</button>
+  {% endbuttons %}
+</form>
+{% endif %}
+
+<div class="list-group">
+  <ul>
+    {% for comment in book.comment_set.all %}
+    {% if comment_edit_id == comment.id and form_comment_edit %}
+    <li class="list-group-item">
+      <form action="{% url 'comment_edit' book.pk comment.id %}" method="post">
+        {% csrf_token %}
+        {{ form_comment_edit.as_p }}
+        <button>Сохранить</button>
+      </form>
+    </li>
+    {% else %}
+    <li class="list-group-item">
+
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ comment.user }} {{ comment.user.last_name }}</h5>
+        {% if user == comment.user %}
+        <small>
+          <a href="{% url 'book' book.pk %}?comment={{ comment.id }}" class="btn btn-primary">Редактировать</a>
+          <a href="{% url 'comment_delete' book.pk comment.id %}" class="btn btn-danger">Удалить</a>
+        </small>
+        {% endif %}
+      </div>
+
+      <p class="mb-1">{{ comment.comment }}</small>
+        
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endblock content %}

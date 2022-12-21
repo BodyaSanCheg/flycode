@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ avtor }}{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <h1 class="display-4">{{ avtor }} {{ avtor.last_name }}</h1>
+  <hr class="my-4">
+  <p>Автор книг</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="{% url 'home' %}" role="button">Главная</a>
+  </p>
+</div>
+
+<div class="container">
+  <div class="row">
+    {% for book in books %}
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ book.first_name }}</h5>
+          <p class="card-text">
+          <div class="list-group"> Авторы:
+            {% for u in book.user.all %}
+            <a href="{% url 'books_by_avtor' u.id %}" class="list-group-item list-group-item-action">{{ u }}</a>
+            {% endfor %}
+          </div>
+          </p>
+          <a href="{% url 'book' book.pk %}" class="btn btn-primary">Открыть</a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">НЕТ НИОДНОЙ КНИГИ</h5>
+          <p class="card-text">НЕТ НИОДНОЙ КНИГИ</p>
+          <a href="#" class="btn btn-primary">НЕТ НИОДНОЙ КНИГИ</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

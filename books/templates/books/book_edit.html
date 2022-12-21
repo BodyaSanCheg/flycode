@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Редактировать{% endblock %}
+
+{% block content %}
+<h1><a href="{% url 'book' book.pk %}">{{ book }}</a></h1>
+<form action="{% url 'book_edit' book.pk %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button>Сохранить</button>
+</form>
+<div>
+  <a href="{% url 'book_delete' book.pk %}">Удалить</a>
+</div>
+{% endblock content %}
