@@ -15,10 +15,13 @@ urlpatterns = [
     path('book-delete/<int:pk>', views.book_delete, name='book_delete'),
     # Книга по авторам
     path('books-by-avtor/<int:user_id>', views.books_by_avtor, name='books_by_avtor'),
+
     # Изменить комментарий
     path('book/<int:book_id>/comment-edit/<int:comment_id>', views.comment_edit, name='comment_edit'),
     # Удалить комментарий
     path('book/<int:book_id>/comment-delete/<int:comment_id>', views.comment_delete, name='comment_delete'),
+
+    # path('profil/<str:username>', views.profil, name='profil'),
 
     # Регистрация и авторизация
     path('users/', include('django.contrib.auth.urls')),
