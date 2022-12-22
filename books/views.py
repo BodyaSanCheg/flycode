@@ -42,7 +42,7 @@ def book(request, pk):
         form_comment_add = CommentForm(data=request.POST)
         if form_comment_add.is_valid:
             new_comment = form_comment_add.save(commit=False)
-            new_comment.user = request.user
+            new_comment.owner = request.user
             new_comment.book = book
             new_comment.save()
             return redirect('book', pk=book.pk)
@@ -125,13 +125,27 @@ def comment_delete(request, book_id, comment_id):
     comment.delete()
     return redirect('book', pk=book_id)
 
+@login_required
+def book_add(request,):
+    """Функция добавления книги"""
+    if request.method == 'POST':
+        form_book_add = BookForm(data=request.POST)
+        if form_book_add.is_valid:
+            new_book = form_book_add.save()
+            return redirect('book', pk=new_book.pk)
+    form_book_add = BookForm()
+    context = {
+        'form_book_add':form_book_add,
+    }
+    return render(request, 'books/book_add.html', context)
+
 def check_book_owner(request, book):
     """Проверка, является ли пользователь владельцем"""
-    if book.user != request.user:
+    if request.user not in book.owner.all():
         raise Http404
 
 def check_comment_owner(request, comment):
-    if comment.user != request.user:
+    if comment.owner != request.user:
         raise Http404
 
 class SignUpView(CreateView):

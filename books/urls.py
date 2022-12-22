@@ -13,6 +13,8 @@ urlpatterns = [
     path('book-edit/<int:pk>', views.book_edit, name='book_edit'),
     # Удаление книгу
     path('book-delete/<int:pk>', views.book_delete, name='book_delete'),
+    # Добавить книгу
+    path('book-add/', views.book_add, name='book_add'),
     # Книга по авторам
     path('books-by-avtor/<int:user_id>', views.books_by_avtor, name='books_by_avtor'),
 
@@ -20,8 +22,6 @@ urlpatterns = [
     path('book/<int:book_id>/comment-edit/<int:comment_id>', views.comment_edit, name='comment_edit'),
     # Удалить комментарий
     path('book/<int:book_id>/comment-delete/<int:comment_id>', views.comment_delete, name='comment_delete'),
-
-    # path('profil/<str:username>', views.profil, name='profil'),
 
     # Регистрация и авторизация
     path('users/', include('django.contrib.auth.urls')),

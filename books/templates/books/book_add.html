@@ -1,0 +1,18 @@
+{% extends 'base_bootstrap.html' %}
+{% load bootstrap4 %}
+
+{% block title %}Добавить книгу{% endblock %}
+
+{% block content %}
+<div class="container">
+  <form action="{% url 'book_add' %}" method="post" class="form">
+
+    {% csrf_token %}
+    {% bootstrap_form form_book_add %}
+
+    {% buttons %}
+    <button name="submit" class="btn btn-primary">Добавить</button>
+    {% endbuttons %}
+  </form>
+</div>
+{% endblock content %}

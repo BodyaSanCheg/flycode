@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'base_bootstrap.html' %}
 {% load bootstrap4 %}
 
-{% block title %}Sign Up{% endblock title %}
+{% block title %}Регистрация{% endblock title %}
 
 {% block header %}
 <h2>Регистрация</h2>
@@ -12,7 +12,7 @@
     {% bootstrap_form form %}
 
     {% buttons %}
-    <button name="submit" class="btn btn-primary">Регистрация</button>
+    <button name="submit" class="btn btn-primary">Войти</button>
     {% endbuttons %}
 
   </form>

@@ -27,7 +27,7 @@ class BooksAdmin(admin.ModelAdmin):
 
     def get_user_name(self, obj):
         name = ''
-        for user in obj.user.all():
+        for user in obj.owner.all():
             name += f'/{user}/'
         return name
     

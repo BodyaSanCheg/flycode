@@ -22,10 +22,10 @@
         <ul class="navbar-nav  mr-auto">
           {% if user.is_authenticated %}
         </ul>
-        <span class="navbar-text">
-          Привет {{ user.first_name }} {{ user.last_name }}!
-        </span>
         <ul class="navbar-nav">
+          <li class="nav_item">
+          <a class="nav-link" href="{% url 'books_by_avtor' user.id %}">Привет {{ user.first_name }} {{ user.last_name }}!</a>
+        </li>
           <li class="nav_item">
             <a class="nav-link" href="{% url 'logout' %}">выйти</a>
           </li>

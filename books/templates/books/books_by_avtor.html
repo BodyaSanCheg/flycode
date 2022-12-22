@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_bootstrap.html' %}
 
 {% block title %}{{ avtor }}{% endblock %}
 
@@ -10,6 +10,9 @@
   <p>Автор книг</p>
   <p class="lead">
     <a class="btn btn-primary btn-lg" href="{% url 'home' %}" role="button">Главная</a>
+    {% if user.id == avtor.id %}
+    <a class="btn btn-primary btn-lg" href="{% url 'book_add' %}" role="button">Добавить книгу</a>
+    {% endif %}
   </p>
 </div>
 
@@ -19,11 +22,11 @@
     <div class="col-sm-6">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{ book.first_name }}</h5>
+          <h5 class="card-title">{{ book.name }}</h5>
           <p class="card-text">
           <div class="list-group"> Авторы:
-            {% for u in book.user.all %}
-            <a href="{% url 'books_by_avtor' u.id %}" class="list-group-item list-group-item-action">{{ u }}</a>
+            {% for owner in book.owner.all %}
+            <a href="{% url 'books_by_avtor' owner.id %}" class="list-group-item list-group-item-action">{{ owner }}</a>
             {% endfor %}
           </div>
           </p>
